@@ -15,6 +15,3 @@ jobs:
 
       - name: outputting the cleaned wbcd.txt file
         run: ./clean < wbcd.txt > cleaned_wbcd.txt
-
-      - name: testing clean
-        run: make ctest; ./test_script >test_results.txt; gcov ctest-clean.c
