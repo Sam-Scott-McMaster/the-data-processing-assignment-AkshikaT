@@ -1,0 +1,20 @@
+name: build utility for data processing
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: data processing executable
+        run: make clean
+
+      - name: outputting the cleaned wbcd.txt file
+        run: ./clean < wdcd.txt > cleaned_wbcd.txt
+
+      - name: testing clean
+        run: make ctest; ./test_script >test_results.txt; gcov ctest-clean.c
