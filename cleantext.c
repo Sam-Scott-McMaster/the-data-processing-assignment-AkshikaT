@@ -55,39 +55,17 @@ float **clean_delete(float **old_data, int *rows, int *cols) {
                 break;
             }
         }
-        if (delete == 0) {          // if no nan
+        if (delete == 0) {          // if no nan, keep the row
             new_rows ++;
+            old_data[new_rows] = old_data[i];
         }
     }
 
-    // allocating memory for each row
-    float **new_data = malloc(new_rows * sizeof(float *));
+    // reallocating memory for each row through new array
+    float **new_data = realloc(old_data, new_rows * sizeof(float *));
     if (new_data == NULL) {
         fprintf(stderr, "memory allocation failed for outer arr \n");
         return NULL;
-    }
-    for (int i = 0; i < new_rows; i ++) {
-        new_data[i] = malloc(*cols * sizeof(float));
-        if (new_data[i] == NULL) {
-            fprintf(stderr, "memory allocation failed\n");
-            return NULL;
-        }
-    }
-
-    // copying the old valid rows to the new array
-    int count = 0;                          // row count for new_data
-    for(int i = 0; i < *rows; i ++) {
-        int delete = 0;
-        for(int j = 0; j < *cols; j ++) {
-            if(isnan(old_data[i][j]) ) {
-                delete = 1;
-                break;
-            }
-        }
-        if(delete == 0) {                   // copying valid rows to new_data
-            new_data[count] = old_data[i];
-            count ++;
-        }
     }
     *rows = new_rows;
     return new_data;
