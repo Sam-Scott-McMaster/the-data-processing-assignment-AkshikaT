@@ -11,7 +11,7 @@ Date: November 17, 2024
 Description: contains all the methods to clean and handle arguments for cleaning text utility
 */
 
-// creates a rectangular array of floats which is filled from the standard input
+// Description: creates a rectangular array of floats which is filled from the standard input
 float **read_data(int *rows, int *cols) {
     scanf("%d %d", rows, cols);
     printf("The rows: %d ", *rows);
@@ -21,7 +21,6 @@ float **read_data(int *rows, int *cols) {
         fprintf(stderr, "memory allocation failed for outer arr \n");
         return NULL;
     }
-
     for (int i = 0; i < *rows; i ++) {
         arr[i] = malloc(*cols * sizeof(float));
         if (arr[i] == NULL) {
@@ -43,27 +42,58 @@ float **read_data(int *rows, int *cols) {
     return arr;
 }
 
-// implementing the deletion method if -d used
-// float *clean_delete(float *old_data, int *rows, int *cols) {
+// Description: implementing the deletion method if -d used
+float **clean_delete(float **old_data, int *rows, int *cols) {
+    int new_rows = 0;
 
-//     // ensuring the every row with a nan is removed in the new data array
-//     float *new_data = malloc(*rows * *cols * sizeof(float));
-//     for(int i = 0; i < *rows; i ++) {
-//         int delete = 0;                         // will be 1 if the row has a NAN
-//         int curr_col = 0;
-//         for (int j = 0; j < *cols; j ++) {
-//             if (old_data[i * *cols + j] == NAN) {
-//                 delete = 1;
-//             }
-//             curr_col = j;
-//         }
-//         // copying row by row from old_data to new_data if no NAN
-//         if (delete == 0) {
-//             new_data[i] = old_data[i * *cols + curr_col];
-//         }
-//     }
-// }
+    // iterating through old array to find the number of rows for new array
+    for (int i = 0; i < *rows; i ++) {
+        int delete = 0;
+        for (int j = 0; j < *cols; j ++) {
+            if(isnan(old_data[i][j]) ) {
+                delete = 1;
+                break;
+            }
+        }
+        if (delete == 0) {          // if no nan
+            new_rows ++;
+        }
+    }
 
+    // allocating memory for each row
+    float **new_data = malloc(new_rows * sizeof(float *));
+    if (new_data == NULL) {
+        fprintf(stderr, "memory allocation failed for outer arr \n");
+        return NULL;
+    }
+    for (int i = 0; i < new_rows; i ++) {
+        new_data[i] = malloc(*cols * sizeof(float));
+        if (new_data[i] == NULL) {
+            fprintf(stderr, "memory allocation failed\n");
+            return NULL;
+        }
+    }
+
+    // copying the old valid rows to the new array
+    int count = 0;                          // row count for new_data
+    for(int i = 0; i < *rows; i ++) {
+        int delete = 0;
+        for(int j = 0; j < *cols; j ++) {
+            if(isnan(old_data[i][j]) ) {
+                delete = 1;
+                break;
+            }
+        }
+        if(delete == 0) {                   // copying valid rows to new_data
+            new_data[count] = old_data[i];
+            count ++;
+        }
+    }
+    *rows = new_rows;
+    return new_data;
+}
+
+// Description: function that outputs a 2d array in the same set up as the text file input
 void **output_data(float **data, int *rows, int *cols) {
     printf("%d %d", *rows, *cols);
     for(int i = 0; i < *rows; i ++) {
