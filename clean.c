@@ -24,6 +24,8 @@ int main(int argc, char *argv[]) {
     // read the data from the user
     float **data = read_data(&rows, &cols);
 
+    output_data(data, &rows, &cols);
+
     // if the -d used, then the deletion strategy is implemented
     // if (ifDelete == 1) {
     //     data = clean_delete(data, &rows, &cols);

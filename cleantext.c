@@ -22,8 +22,6 @@ float **read_data(int *rows, int *cols) {
         return NULL;
     }
 
-    printf("finished allocating the outer array \n");
-
     for (int i = 0; i < *rows; i ++) {
         arr[i] = malloc(*cols * sizeof(float));
         if (arr[i] == NULL) {
@@ -32,12 +30,9 @@ float **read_data(int *rows, int *cols) {
         }
     }
 
-    printf("finished allocating inner array \n");
-
     // reading the text file
     for(int i = 0; i < *rows; i ++) {
         for (int j = 0; j < *cols; j ++) {
-            printf("reading the %d %d element \n", i, j);
             if(scanf("%f", &arr[i][j]) != 1) {             // if input not float, store as NAN
                 arr[i][j] = NAN;
             }
@@ -69,10 +64,12 @@ float **read_data(int *rows, int *cols) {
 //     }
 // }
 
-// void output_data(float **data, int *rows, int *cols) {
-//     for(int i = 0; i < *rows; i ++) {
-//         for (int j = 0; j < *cols; j ++) {
-//             printf("%f ", data[i][j]);
-//         }
-//     }
-// } 
+void **output_data(float **data, int *rows, int *cols) {
+    printf("%d %d", *rows, *cols);
+    for(int i = 0; i < *rows; i ++) {
+        printf("\n");
+        for (int j = 0; j < *cols; j ++) {
+            printf("%.3f ", data[i][j]);
+        }
+    }
+} 
