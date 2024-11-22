@@ -11,6 +11,21 @@ Date: November 17, 2024
 Description: contains all the methods to clean and handle arguments for cleaning text utility
 */
 
+// Description: when --help is inputted
+void help() {
+    printf("Usage: clean [-d]\n");
+    printf("\n Some common commands from using the ./clean utility: \n");
+    printf("./clean -d < [*.txt] \t\t --> for using the deletion method\n");
+    printf("./clean < [*.txt] \t\t --> for using the imputation strategy \n");
+    printf("\n\n./clean [-d] < [input.txt] > [output.txt] \t--> to print result of command to another text file\n");
+}
+
+// Description: outputs a usage string if there is a mistake in user input
+int usage() {
+    printf("Usage: clean [-d]\n");
+    return EXIT_FAILURE;
+}
+
 // Description: creates a rectangular array of floats which is filled from the standard input
 float *read_data(int *rows, int *cols) {
     scanf("%d %d", rows, cols);

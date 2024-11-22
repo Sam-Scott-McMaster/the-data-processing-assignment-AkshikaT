@@ -19,7 +19,14 @@ int main(int argc, char *argv[]) {
     if (argc == 2 && strcmp(argv[1], "-d") == 0) {
         ifDelete = 1;
     }
-    printf("deletion method: %d\n", ifDelete);          // DEBUG
+    else if (argc == 2 && strcmp(argv[1], "--help") == 0) {
+        help();
+        return EXIT_SUCCESS;
+    }
+    else if (argc != 1) {           // if one argument, the imputation method
+        usage();
+        return EXIT_FAILURE;
+    }
 
     // read the data from the user
     float *data = read_data(&rows, &cols);

@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void help();
+
+int usage();
+
 float *read_data(int *rows, int *cols);
 
 float *clean_delete(float *old_data, int *rows, int *cols);
