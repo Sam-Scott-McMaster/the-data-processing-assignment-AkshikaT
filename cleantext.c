@@ -3,7 +3,6 @@
 #include <math.h>
 #include "clean.h"
 
-
 /*
 The data processing assignment
 Name: Akshika Thiyagendran
@@ -29,8 +28,6 @@ int usage() {
 // Description: creates a rectangular array of floats which is filled from the standard input
 float *read_data(int *rows, int *cols) {
     scanf("%d %d", rows, cols);
-    printf("The rows: %d ", *rows);
-    printf("The cols: %d \n", *cols);
 
     // allocating memory as a 1d array
     float (*arr)= malloc(*rows * (*cols) * sizeof(float));
@@ -47,7 +44,6 @@ float *read_data(int *rows, int *cols) {
             }
         }
     }
-    printf("done making array \n");
 
     return arr;
 }
@@ -119,7 +115,6 @@ void clean_impute(float *old_data, int *rows, int *cols) {
         for (int i = 0; i < *rows; i ++) {
             if(isnan(arr2d[i][curr_col])) {
                 count ++;
-                printf("nan in %d %d\n", i, curr_col);
             }
             else {
                 sum += arr2d[i][curr_col];          // add the sum of the column which isn't nan
@@ -131,7 +126,6 @@ void clean_impute(float *old_data, int *rows, int *cols) {
                 avg == 0;
             }
             else {
-                printf("sum: %f\n", sum);
                 avg = sum / (*rows - count);
             }
             for (int i = 0; i < *rows; i ++) {

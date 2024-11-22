@@ -3,7 +3,6 @@
 #include <string.h>
 #include "clean.h"
 
-
 /*
 The Data Processing Assignment
 Name: Akshika Thiyagendran
