@@ -13,5 +13,8 @@ jobs:
       - name: data processing executable
         run: make clean
 
-      - name: outputting the cleaned wbcd.txt file
-        run: ./clean < wbcd.txt > cleaned_wbcd.txt
+      - name: upload cleaned wbcd.txt file
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleaned wbcd.txt file
+          path: ./clean < wbcd.txt > cleaned_wbcd.txt
